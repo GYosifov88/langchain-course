@@ -1,3 +1,4 @@
+import os
 from typing import Any, Dict
 
 from dotenv import load_dotenv
@@ -15,10 +16,10 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 #Initialize vector store
 vectorstore = PineconeVectorStore(
-    index_name="langchain-docs-2026", embedding=embeddings
+    index_name="langchain-doc-index", embedding=embeddings
 )
 # Initialize chat model
-model = init_chat_model("gpt-5.2", model_provider="openai")
+model = init_chat_model("gpt-4o-mini", model_provider="openai")
 
 
 @tool(response_format="content_and_artifact")
