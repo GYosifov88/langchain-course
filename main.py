@@ -32,9 +32,7 @@ app= flow.compile()
 app.get_graph().draw_mermaid_png(output_file_path="flow.png")
 
 
-def main():
-    print("Hello from langchain-course!")
-
-
 if __name__ == "__main__":
-    main()
+    print("Hello ReAct LangGraph with Function Calling")
+    res = app.invoke({"messages": [HumanMessage(content="What is the weather in Tokyo? List it and then triple it")]})
+    print(res["messages"][LAST].content)

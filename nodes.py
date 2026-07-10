@@ -11,7 +11,7 @@ SYSTEM_MESSAGE = """
 You are a helpful assistant that can use tools to answer questions.
 """
 
-def run_agent_reasoning(state: MessagesState, user_input: str) -> str:
+def run_agent_reasoning(state: MessagesState) -> str:
     """
     Run the agent reasoning node
     """
