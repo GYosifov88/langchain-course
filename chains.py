@@ -1,6 +1,11 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 reflection_prompt = ChatPromptTemplate.from_messages(
     [  
         (
@@ -25,6 +30,6 @@ generation_prompt = ChatPromptTemplate.from_messages(
 )
 
 llm = ChatOpenAI(model="gpt-4o-mini")
-generation_chain = generation_prompt | llm
-reflection_chain = reflection_prompt | llm
+generate_chain = generation_prompt | llm
+reflect_chain = reflection_prompt | llm
 
