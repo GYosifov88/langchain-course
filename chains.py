@@ -4,12 +4,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_core.output_parsers.openai_tools import (JsonOutputToolsParser, PydanticToolsParser)
+from langchain_core.output_parsers.openai_tools import (
+    JsonOutputToolsParser,
+    PydanticToolsParser,
+)
 from langchain_core.messages import HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 from schemas import AnswerQuestion, ReviseAnswer
-
 
 llm = ChatOpenAI(model="gpt-4o-mini")
 parser = JsonOutputToolsParser(return_id=True)
@@ -24,7 +26,7 @@ Current time: {time}
 
 1. {first_instruction}
 2. Reflect and critique your answer. Be severe to maximize improvement.
-3. Recommend search queries to research information and improve your answe."""
+3. Recommend search queries to research information and improve your answe.""",
         ),
         MessagesPlaceholder(variable_name="messages"),
         ("system", "Answer the user's question above using the required format."),
@@ -50,9 +52,9 @@ revise_instructions = """Revise your previous answer using the new information.
     - You should use the previous critique to remove superfluous information from your answer and make SURE it is not more than 250 words.
 """
 
-revisor = actor_prompt_template(
-    first_instruction=revise_instructions
-) | llm.bind_tools(tools=[ReviseAnswer], tool_choice="ReviseAnswer")
+revisor = actor_prompt_template(first_instruction=revise_instructions) | llm.bind_tools(
+    tools=[ReviseAnswer], tool_choice="ReviseAnswer"
+)
 
 
 if __name__ == "__main__":
@@ -62,7 +64,7 @@ if __name__ == "__main__":
     )
 
     chain = (
-        first_responder_prompt_template 
+        first_responder_prompt_template
         | llm.bind_tools(tools=[AnswerQuestion], tool_choice="AnswerQuestion")
         | parser_pydantic
     )
